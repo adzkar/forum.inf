@@ -5,6 +5,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,4 +34,13 @@ public class Komentar {
     @Column(name = "tgl_komentar", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date tgl;
+    
+//    Relation
+    @ManyToOne
+    @JoinColumn(name = "id_artikel", nullable = false)
+    private Artikel artikel;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_user", nullable = false)
+    private User user;
 }
