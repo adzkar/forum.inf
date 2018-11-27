@@ -12,6 +12,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
@@ -45,9 +48,6 @@ public class User {
     private List<Komentar> daftarKomentar = new ArrayList<>();
     
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
-    private List<Artikel> daftarArtikel = new ArrayList<>();
-    
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
     private List<Modul> daftarModul = new ArrayList<>();
     
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
@@ -55,4 +55,12 @@ public class User {
     
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
     private List<Announcement> daftarAnn = new ArrayList<>();
+    
+    @ManyToMany
+    @JoinTable(
+            name = "tb_daftar_artikel",
+            joinColumns = @JoinColumn(name = "id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_artikel")
+    )
+    private List<Artikel> daftarArtikel = new ArrayList<>();
 }

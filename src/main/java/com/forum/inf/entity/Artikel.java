@@ -48,10 +48,6 @@ public class Artikel {
     private List<Komentar> daftar_komentar = new ArrayList<>();
     
     @ManyToOne
-    @JoinColumn(name = "id_user", nullable = false)
-    private User user;
-    
-    @ManyToOne
     @JoinColumn(name = "id_tag", nullable = false)
     private Tag tag;
 }
