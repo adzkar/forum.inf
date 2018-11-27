@@ -50,4 +50,8 @@ public class Artikel {
     @ManyToOne
     @JoinColumn(name = "id_user", nullable = false)
     private User user;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_tag", nullable = false)
+    private Tag tag;
 }
