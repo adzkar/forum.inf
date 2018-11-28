@@ -35,7 +35,7 @@ public class Modul {
 
     @Column(nullable = false, name = "tgl_upload_modul")
     @Temporal(TemporalType.DATE)
-    private Date tgl;
+    private Date tgl = new Date();
     
     @Column(nullable = false)
     private String url;
@@ -44,4 +44,62 @@ public class Modul {
     @ManyToOne
     @JoinColumn(name = "id_user", nullable = false)
     private User user;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getJudul() {
+        return judul;
+    }
+
+    public void setJudul(String judul) {
+        this.judul = judul;
+    }
+
+    public String getMk() {
+        return mk;
+    }
+
+    public void setMk(String mk) {
+        this.mk = mk;
+    }
+
+    public Double getSize() {
+        return size;
+    }
+
+    public void setSize(Double size) {
+        this.size = size;
+    }
+
+    public Date getTgl() {
+        return tgl;
+    }
+
+    public void setTgl(Date tgl) {
+        this.tgl = tgl;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    
 }

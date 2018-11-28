@@ -33,7 +33,7 @@ public class Komentar {
     
     @Column(name = "tgl_komentar", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date tgl;
+    private Date tgl = new Date();
     
 //    Relation
     @ManyToOne
@@ -43,4 +43,54 @@ public class Komentar {
     @ManyToOne
     @JoinColumn(name = "id_user", nullable = false)
     private User user;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getJudul() {
+        return judul;
+    }
+
+    public void setJudul(String judul) {
+        this.judul = judul;
+    }
+
+    public String getIsi() {
+        return isi;
+    }
+
+    public void setIsi(String isi) {
+        this.isi = isi;
+    }
+
+    public Date getTgl() {
+        return tgl;
+    }
+
+    public void setTgl(Date tgl) {
+        this.tgl = tgl;
+    }
+
+    public Artikel getArtikel() {
+        return artikel;
+    }
+
+    public void setArtikel(Artikel artikel) {
+        this.artikel = artikel;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    
 }

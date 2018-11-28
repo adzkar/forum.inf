@@ -32,7 +32,7 @@ public class Announcement {
     
     @Column(nullable = false, name = "tgl_ann")
     @Temporal(TemporalType.DATE)
-    private Date tgl;
+    private Date tgl = new Date();
     
 //    Relation
     @ManyToOne
@@ -42,4 +42,54 @@ public class Announcement {
     @ManyToOne
     @JoinColumn(name = "id_tag", nullable = false)
     private Tag tag;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getJudul() {
+        return judul;
+    }
+
+    public void setJudul(String judul) {
+        this.judul = judul;
+    }
+
+    public String getIsi() {
+        return isi;
+    }
+
+    public void setIsi(String isi) {
+        this.isi = isi;
+    }
+
+    public Date getTgl() {
+        return tgl;
+    }
+
+    public void setTgl(Date tgl) {
+        this.tgl = tgl;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Tag getTag() {
+        return tag;
+    }
+
+    public void setTag(Tag tag) {
+        this.tag = tag;
+    }
+    
+    
 }

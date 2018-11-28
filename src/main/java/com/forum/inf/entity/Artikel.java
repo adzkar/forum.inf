@@ -41,7 +41,7 @@ public class Artikel {
     
     @Column(name = "tgl_publish", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date upload;
+    private Date upload = new Date();
     
 //    Relation
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "artikel")
@@ -50,4 +50,66 @@ public class Artikel {
     @ManyToOne
     @JoinColumn(name = "id_tag", nullable = false)
     private Tag tag;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getJudul() {
+        return judul;
+    }
+
+    public void setJudul(String judul) {
+        this.judul = judul;
+    }
+
+    public String getIsi() {
+        return isi;
+    }
+
+    public void setIsi(String isi) {
+        this.isi = isi;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public int getView() {
+        return view;
+    }
+
+    public void setView(int view) {
+        this.view = view;
+    }
+
+    public Date getUpload() {
+        return upload;
+    }
+
+    public void setUpload(Date upload) {
+        this.upload = upload;
+    }
+
+    public Tag getTag() {
+        return tag;
+    }
+
+    public void setTag(Tag tag) {
+        this.tag = tag;
+    }
+
+    public List<Komentar> getDaftar_komentar() {
+        return daftar_komentar;
+    }
+    
+    
 }

@@ -63,4 +63,67 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "id_artikel")
     )
     private List<Artikel> daftarArtikel = new ArrayList<>();
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<Komentar> getDaftarKomentar() {
+        return daftarKomentar;
+    }
+
+    public List<Modul> getDaftarModul() {
+        return daftarModul;
+    }
+
+    public List<Lab> getDaftarLab() {
+        return daftarLab;
+    }
+
+    public List<Announcement> getDaftarAnn() {
+        return daftarAnn;
+    }
+
+    public List<Artikel> getDaftarArtikel() {
+        return daftarArtikel;
+    }
+    
+    
+    
 }
