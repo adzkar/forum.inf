@@ -9,11 +9,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -29,15 +33,17 @@ public class Artikel {
     private String id;
     
     @Column(nullable = false, name = "judul_artikel")
+    @NotNull @NotEmpty
     private String judul;
     
     @Column(nullable = false, columnDefinition = "TEXT", name = "isi_artikel")
+    @NotNull @NotEmpty
     private String isi;
     
     private String image;
     
     @Column(name = "total_view")
-    private int view;
+    private int view = 0;
     
     @Column(name = "tgl_publish", nullable = false)
     @Temporal(TemporalType.DATE)
@@ -46,11 +52,18 @@ public class Artikel {
 //    Relation
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "artikel")
     private List<Komentar> daftar_komentar = new ArrayList<>();
-    
-    @ManyToOne
-    @JoinColumn(name = "id_tag", nullable = false)
-    private Tag tag;
 
+    @ManyToMany
+    @JoinTable(
+        name = "tb_tag_artikel",
+        joinColumns = @JoinColumn(name = "id_artikel"),
+        inverseJoinColumns = @JoinColumn(name = "id_tag")
+    )
+    private List<Tag> daftarTag = new ArrayList<>();
+    
+    @ManyToMany(mappedBy = "daftarArtikel")
+    private List<User> daftarUser = new ArrayList<>();
+    
     public String getId() {
         return id;
     }
@@ -97,14 +110,6 @@ public class Artikel {
 
     public void setUpload(Date upload) {
         this.upload = upload;
-    }
-
-    public Tag getTag() {
-        return tag;
-    }
-
-    public void setTag(Tag tag) {
-        this.tag = tag;
     }
 
     public List<Komentar> getDaftar_komentar() {

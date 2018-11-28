@@ -17,6 +17,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -32,12 +36,18 @@ public class User {
     private String id;
     
     @Column(nullable = false, name = "nama_user")
+    @NotNull @NotEmpty
+    @Size(max = 20)
     private String nama;
     
     @Column(nullable = false)
+    @NotNull @NotEmpty
+    @Size(min = 8)
     private String pass;
 
     @Column(nullable = false)
+    @NotNull @NotEmpty
+    @Email
     private String email;
     
     @Column(nullable = false)

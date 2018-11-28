@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -22,15 +24,19 @@ public class Lab {
     private String id;
     
     @Column(nullable = false)
+    @NotNull @NotEmpty
     private String nama;
     
     @Column(nullable = false)
+    @NotNull @NotEmpty
     private String kategori;
     
     @Column(nullable = false, name = "dosen_pembina")
+    @NotNull @NotEmpty
     private String dosen;
     
     @Column(nullable = false, columnDefinition = "TEXT")
+    @NotNull @NotEmpty
     private String deskripsi;
     
 //    Relation

@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -25,23 +27,22 @@ public class Announcement {
     private String id;
     
     @Column(nullable = false)
+    @NotNull @NotEmpty
     private String judul;
     
     @Column(nullable = false, columnDefinition = "TEXT", name = "isi_ann")
+    @NotNull @NotEmpty
     private String isi;
     
     @Column(nullable = false, name = "tgl_ann")
     @Temporal(TemporalType.DATE)
+    @NotNull
     private Date tgl = new Date();
     
 //    Relation
     @ManyToOne
     @JoinColumn(name = "id_user", nullable = false)
     private User user;
-    
-    @ManyToOne
-    @JoinColumn(name = "id_tag", nullable = false)
-    private Tag tag;
 
     public String getId() {
         return id;
@@ -81,14 +82,6 @@ public class Announcement {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Tag getTag() {
-        return tag;
-    }
-
-    public void setTag(Tag tag) {
-        this.tag = tag;
     }
     
     

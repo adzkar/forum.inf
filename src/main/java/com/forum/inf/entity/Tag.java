@@ -7,8 +7,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -24,15 +27,12 @@ public class Tag {
     private String id;
     
     @Column(nullable = false, name = "nama_tag")
+    @NotNull @NotEmpty
     private String nama;
     
-//    Relation
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "tag")
+    @ManyToMany(mappedBy = "daftarTag")
     private List<Artikel> daftarArtikel = new ArrayList<>();
     
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "tag")
-    private List<Announcement> daftarAnn = new ArrayList<>();
-
     public String getId() {
         return id;
     }
@@ -47,14 +47,6 @@ public class Tag {
 
     public void setNama(String nama) {
         this.nama = nama;
-    }
-
-    public List<Announcement> getDaftarAnn() {
-        return daftarAnn;
-    }
-
-    public List<Artikel> getDaftarArtikel() {
-        return daftarArtikel;
     }
     
 }

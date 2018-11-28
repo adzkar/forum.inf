@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -25,9 +27,11 @@ public class Modul {
     private String id;
     
     @Column(nullable = false, name = "judul_modul")
+    @NotNull @NotEmpty
     private String judul;
     
     @Column(nullable = false, name = "matkul")
+    @NotNull @NotEmpty
     private String mk;
     
     @Column(nullable = false, precision = 16, scale = 2)

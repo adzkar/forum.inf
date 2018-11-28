@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -26,9 +28,11 @@ public class Komentar {
     private String id;
     
     @Column(name = "judul_komentar", nullable = false)
+    @NotNull @NotEmpty
     private String judul;
     
     @Column(name = "isi_komentar", nullable = false)
+    @NotNull @NotEmpty
     private String isi;
     
     @Column(name = "tgl_komentar", nullable = false)
