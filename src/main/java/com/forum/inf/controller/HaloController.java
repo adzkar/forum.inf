@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author tayo
  */
 @RestController
+@RequestMapping("api")
 public class HaloController {
     
     @RequestMapping("/halo")
