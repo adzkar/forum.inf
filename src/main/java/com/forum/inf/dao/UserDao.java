@@ -16,4 +16,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDao extends JpaRepository<User, String>{
     
+    @Query(
+           "select x from User x where x.status = (:status)" 
+    )
+    public List<User> getMembers(@Param("status") String status);
 }
