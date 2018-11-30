@@ -115,6 +115,13 @@ public class Artikel {
     public List<Komentar> getDaftar_komentar() {
         return daftar_komentar;
     }
-    
+
+    public List<Tag> getDaftarTag() {
+        return daftarTag;
+    }
+
+    public List<User> getDaftarUser() {
+        return daftarUser;
+    }
     
 }

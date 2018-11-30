@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
@@ -27,39 +28,44 @@ public class TestUser {
    @Autowired
    private DataSource ds;
    
+   @Autowired
+   private JpaTransactionManager jtm;
+   
    @Test
    public void testInsertUser() throws SQLException {
        User u = new User();
-       u.setNama("Test2");
-       u.setEmail("test2@test.com");
-       u.setPass("cba");
+       u.setNama("Taek");
+       u.setEmail("taek@test.com");
+       u.setPass("123456789010");
        ud.save(u);
      
        Modul m = new Modul();
-       m.setJudul("Introduction to Alghorithm");
-       m.setMk("DAP");
+       m.setJudul("TAEK TAEK");
+       m.setMk("SA");
        m.setSize(10.0);
-       m.setUrl("hola");
+       m.setUrl("hasdola");
        m.setUser(u); 
        
        u.getDaftarModul().add(m);
        
        ud.save(u);
        
+       ds = jtm.getDataSource();
+       
        try(Connection c = ds.getConnection()) {
-           String sql = "select count(*) as jumlah from tb_user";
+           String sql = "select count(*) as jumlah from tb_user where nama_user='Taek'";
            ResultSet rs = c.createStatement().executeQuery(sql);
            Assert.assertTrue(rs.next());
-           Assert.assertEquals(2L, rs.getLong("jumlah"));
+           Assert.assertEquals(1L, rs.getLong("jumlah"));
        }
    }
    
    @Test
    public void insertLab() throws SQLException {
        User u = new User();
-       u.setNama("Test3");
-       u.setEmail("test3@test.com");
-       u.setPass("asdf");
+       u.setNama("Tssakdef");
+       u.setEmail("asdf@test.com");
+       u.setPass("asadf");
        ud.save(u);
        
        Lab l = new Lab();
@@ -71,8 +77,11 @@ public class TestUser {
        
        u.getDaftarLab().add(l);
        ud.save(u);
+       
+       ds = jtm.getDataSource();
+       
        try(Connection c = ds.getConnection()) {
-           String sql = "select count(*) as jumlah from tb_user where nama_user='Test3'";
+           String sql = "select count(*) as jumlah from tb_user where nama_user='Tssakdef'";
            ResultSet rs = c.createStatement().executeQuery(sql);
            Assert.assertTrue(rs.next());
            Assert.assertEquals(2L, rs.getLong("jumlah"));
