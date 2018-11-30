@@ -28,22 +28,22 @@ public class LabController {
     @Autowired
     private LabDao ld;
     
-    private ModelMapper mp = new ModelMapper();
     private Labdto ldto = new Labdto();
 
     @RequestMapping(method = RequestMethod.GET)
     public List<Labdto> getAllLab() {
         List<Labdto> listLab = new ArrayList<>();
-        Lab source = new Lab();
         List<Lab> listLabSource = ld.findAll();
         if(ld.count() > 0) {
             for(int i = 0;i < ld.count();i++) {
-                source.setNama(listLabSource.get(i).getNama());
-                source.setKategori(listLabSource.get(i).getKategori());
-                source.setDosen(listLabSource.get(i).getDosen());
-                source.setDeskripsi(listLabSource.get(i).getDeskripsi());
-                mp.map(source, ldto);
-                listLab.add(ldto);
+                listLab.add(new Labdto(
+                                        (i+1), 
+                                        listLabSource.get(i).getNama(), 
+                                        listLabSource.get(i).getKategori(), 
+                                        listLabSource.get(i).getDosen(), 
+                                        listLabSource.get(i).getDeskripsi()
+                                    )
+                            );
             }
         }
         return listLab;
@@ -52,16 +52,17 @@ public class LabController {
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public Labdto getLabId(@PathVariable("id") int id) {
         List<Labdto> listLab = new ArrayList<>();
-        Lab source = new Lab();
         List<Lab> listLabSource = ld.findAll();
         if(ld.count() > 0) {
             for(int i = 0;i < ld.count();i++) {
-                source.setNama(listLabSource.get(i).getNama());
-                source.setKategori(listLabSource.get(i).getKategori());
-                source.setDosen(listLabSource.get(i).getDosen());
-                source.setDeskripsi(listLabSource.get(i).getDeskripsi());
-                mp.map(source, ldto);
-                listLab.add(ldto);
+                listLab.add(new Labdto(
+                                        (i+1), 
+                                        listLabSource.get(i).getNama(), 
+                                        listLabSource.get(i).getKategori(), 
+                                        listLabSource.get(i).getDosen(), 
+                                        listLabSource.get(i).getDeskripsi()
+                                    )
+                            );
             }
         }
         if(id < 1 | id > listLab.size())

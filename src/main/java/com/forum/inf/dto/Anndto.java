@@ -7,17 +7,29 @@ import java.util.Date;
  * @author tayo
  */
 public class Anndto {
+    private int id;
     private String judul, isi;
     private Date tgl;
 
     public Anndto() {
     }
 
-    public Anndto(String judul, String isi, Date tgl) {
+    public Anndto(int id, String judul, String isi, Date tgl) {
+        this.id = id;
         this.judul = judul;
         this.isi = isi;
         this.tgl = tgl;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    
 
     public String getJudul() {
         return judul;

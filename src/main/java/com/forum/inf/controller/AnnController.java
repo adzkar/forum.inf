@@ -23,21 +23,22 @@ public class AnnController {
     @Autowired
     private AnnouncementDao ad;
     
-    private ModelMapper mp = new ModelMapper();
     private Anndto ldto = new Anndto();
     
     @RequestMapping(method = RequestMethod.GET)
     public List<Anndto> getAllAnn() {
         List<Anndto> listAnn = new ArrayList<>();
-        Announcement source = new Announcement();
         List<Announcement> listLabSource = ad.findAll();
         if(ad.count() > 0) {
             for(int i = 0;i < ad.count();i++) {
-                source.setJudul(listLabSource.get(i).getJudul());
-                source.setIsi(listLabSource.get(i).getIsi());
-                source.setTgl(listLabSource.get(i).getTgl());
-                mp.map(source, ldto);
-                listAnn.add(ldto);
+                listAnn.add(
+                        new Anndto(
+                                (i+1),
+                                listLabSource.get(i).getJudul(),
+                                listLabSource.get(i).getIsi(),
+                                listLabSource.get(i).getTgl()
+                            )
+                        );
             }
         }
         return listAnn;
@@ -46,15 +47,17 @@ public class AnnController {
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public Anndto getAnnId(@PathVariable("id") int id) {
         List<Anndto> listAnn = new ArrayList<>();
-        Announcement source = new Announcement();
         List<Announcement> listLabSource = ad.findAll();
         if(ad.count() > 0) {
             for(int i = 0;i < ad.count();i++) {
-                source.setJudul(listLabSource.get(i).getJudul());
-                source.setIsi(listLabSource.get(i).getIsi());
-                source.setTgl(listLabSource.get(i).getTgl());
-                mp.map(source, ldto);
-                listAnn.add(ldto);
+                listAnn.add(
+                        new Anndto(
+                                (i+1),
+                                listLabSource.get(i).getJudul(),
+                                listLabSource.get(i).getIsi(),
+                                listLabSource.get(i).getTgl()
+                            )
+                        );
             }
         }
         if(id < 1 | id > listAnn.size())

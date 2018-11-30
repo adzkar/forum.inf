@@ -25,12 +25,15 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET)
     public List<Userdto> getAllUser() {
         List<Userdto> listUser = new ArrayList<>();
-        Userdto u = new Userdto();
         List<User> source = ud.getMembers("user");
         for(int i = 0;i < ud.count();i++) {
-            u.setNama(source.get(i).getNama());
-            u.setEmail(source.get(i).getEmail());
-            listUser.add(u);
+            listUser.add(
+                    new Userdto(
+                            (i+1),
+                            source.get(i).getNama(),
+                            source.get(i).getEmail()
+                        )
+                    );
         }
         return listUser;
     }
@@ -38,12 +41,15 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public Userdto getUserId(@PathVariable("id") int id) {
         List<Userdto> listUser = new ArrayList<>();
-        Userdto u = new Userdto();
         List<User> source = ud.getMembers("user");
         for(int i = 0;i < ud.count();i++) {
-            u.setNama(source.get(i).getNama());
-            u.setEmail(source.get(i).getEmail());
-            listUser.add(u);
+            listUser.add(
+                    new Userdto(
+                            (i+1),
+                            source.get(i).getNama(),
+                            source.get(i).getEmail()
+                        )
+                    );
         }
         if(id < 1 | id > listUser.size())
             return new Userdto();

@@ -7,6 +7,7 @@ import java.util.Date;
  * @author tayo
  */
 public class Moduldto {
+    private int id;
     private String judul,mk,url;
     private Double size;
     private Date tgl;
@@ -14,12 +15,21 @@ public class Moduldto {
     public Moduldto() {
     }
 
-    public Moduldto(String judul, String mk, Double size, Date tgl, String url) {
+    public Moduldto(int id, String judul, String mk, Double size, Date tgl, String url) {
+        this.id = id;
         this.judul = judul;
         this.mk = mk;
         this.url = url;
         this.size = size;
         this.tgl = tgl;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getJudul() {

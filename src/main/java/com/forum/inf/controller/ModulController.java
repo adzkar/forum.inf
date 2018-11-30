@@ -23,7 +23,7 @@ public class ModulController {
     @Autowired
     private ModulDao md;
     
-    private ModelMapper mp = new ModelMapper();
+//    private ModelMapper mp = new ModelMapper();
     private Moduldto mdto = new Moduldto();
     
     @RequestMapping(method = RequestMethod.GET)
@@ -33,13 +33,16 @@ public class ModulController {
         List<Modul> listModulSource = md.findAll();
         if(md.count() > 0) {
             for(int i = 0;i < md.count();i++) {
-                source.setJudul(listModulSource.get(i).getJudul());
-                source.setMk(listModulSource.get(i).getMk());
-                source.setSize(listModulSource.get(i).getSize());
-                source.setTgl(listModulSource.get(i).getTgl());
-                source.setUrl(listModulSource.get(i).getUrl());
-                mp.map(source, mdto);
-                listModul.add(mdto);
+                listModul.add(
+                        new Moduldto(
+                                (i+1),
+                                listModulSource.get(i).getJudul(),
+                                listModulSource.get(i).getMk(),
+                                listModulSource.get(i).getSize(),
+                                listModulSource.get(i).getTgl(),
+                                listModulSource.get(i).getUrl()
+                        )
+                );
             }
         }
         return listModul;
@@ -52,13 +55,16 @@ public class ModulController {
         List<Modul> listModulSource = md.findAll();
         if(md.count() > 0) {
             for(int i = 0;i < md.count();i++) {
-                source.setJudul(listModulSource.get(i).getJudul());
-                source.setMk(listModulSource.get(i).getMk());
-                source.setSize(listModulSource.get(i).getSize());
-                source.setTgl(listModulSource.get(i).getTgl());
-                source.setUrl(listModulSource.get(i).getUrl());
-                mp.map(source, mdto);
-                listModul.add(mdto);
+                listModul.add(
+                        new Moduldto(
+                                (i+1),
+                                listModulSource.get(i).getJudul(),
+                                listModulSource.get(i).getMk(),
+                                listModulSource.get(i).getSize(),
+                                listModulSource.get(i).getTgl(),
+                                listModulSource.get(i).getUrl()
+                        )
+                );
             }
         }
         if(id < 1 | id > listModul.size())
