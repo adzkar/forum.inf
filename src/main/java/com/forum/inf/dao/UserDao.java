@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author tayo
  */
 @Repository
-public interface UserDao extends PagingAndSortingRepository<User, String>{
+public interface UserDao extends JpaRepository<User, String>{
     
 }
