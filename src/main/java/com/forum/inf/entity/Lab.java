@@ -41,7 +41,7 @@ public class Lab {
     
 //    Relation
     @ManyToOne
-    @JoinColumn(name = "id_user", nullable = false)
+    @JoinColumn(name = "id_user")
     private User user;
 
     public String getId() {

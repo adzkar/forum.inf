@@ -45,7 +45,7 @@ public class User {
     @Size(min = 8)
     private String pass;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @NotNull @NotEmpty
     @Email
     private String email;

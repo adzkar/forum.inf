@@ -19,4 +19,6 @@ public interface UserDao extends JpaRepository<User, String>{
            "select x from User x where x.status = (:status)" 
     )
     public List<User> getMembers(@Param("status") String status);
+
+    public List<User> getMemberByEmail(String email);
 }
