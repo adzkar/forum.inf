@@ -93,7 +93,7 @@ public class TestUser {
        }
    }
    
-   @Test
+//   @Test
    public void testInserAnn() throws SQLException {
 //    User u = ud.getOne("502385b3-0523-4341-9ac9-2d37f25d066d");
     
@@ -111,12 +111,35 @@ public class TestUser {
     ud.saveAndFlush(user);
 //    anndao.save(ann);
     
+    ds = jtm.getDataSource();
+
     try(Connection c = ds.getConnection()) {
            String sql = "select count(*) as jumlah from tb_announcement where judul='Besok Libur'";
            ResultSet rs = c.createStatement().executeQuery(sql);
            Assert.assertTrue(rs.next());
            Assert.assertEquals(1L, rs.getLong("jumlah"));
        }
+   }
+   
+   @Test
+   public void createAdmin() throws SQLException {
+       User u = new User();
+       u.setNama("admin");
+       u.setEmail("admin@admin.com");
+       u.setPass("adminmahbebas");
+       u.setStatus("admin");
+       
+       ud.save(u);
+       
+       ds = jtm.getDataSource();
+       
+       try(Connection c = ds.getConnection()) {
+           String sql = "select count(*) as jumlah from tb_user where nama_user='admin'";
+           ResultSet rs = c.createStatement().executeQuery(sql);
+           Assert.assertTrue(rs.next());
+           Assert.assertEquals(1L, rs.getLong("jumlah"));
+       }
+       
    }
    
 }
