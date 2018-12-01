@@ -8,6 +8,7 @@ import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,15 +22,19 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(method = RequestMethod.GET, value = "/api")
+@CrossOrigin(origins = "", allowedHeaders = "")
 public class UserController {
     
     @Autowired
     private UserDao ud;
+ 
+    public UserController() {
+    }
     
     @RequestMapping(method = RequestMethod.GET, value = "/user")
     public List<Userdto> getAllUser() {
         List<Userdto> listUser = new ArrayList<>();
-        List<User> source = ud.getMembers("user");
+        List<User> source = ud.findAll();
         for(int i = 0;i < ud.count();i++) {
             listUser.add(
                     new Userdto(
@@ -45,7 +50,7 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET, value = "/user/{id}")
     public Userdto getUserId(@PathVariable("id") int id) {
         List<Userdto> listUser = new ArrayList<>();
-        List<User> source = ud.getMembers("user");
+        List<User> source = ud.findAll();
         for(int i = 0;i < ud.count();i++) {
             listUser.add(
                     new Userdto(
@@ -79,7 +84,7 @@ public class UserController {
     public void deleteUserbyId(@PathVariable("id") int id_user) {
 //        get data
         List<Userdto> listUser = new ArrayList<>();
-        List<User> source = ud.getMembers("user");
+        List<User> source = ud.findAll();
         for(int i = 0;i < ud.count();i++) {
             listUser.add(
                     new Userdto(
