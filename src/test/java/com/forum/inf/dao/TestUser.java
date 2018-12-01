@@ -1,11 +1,13 @@
 package com.forum.inf.dao;
 
+import com.forum.inf.entity.Announcement;
 import com.forum.inf.entity.Lab;
 import com.forum.inf.entity.Modul;
 import com.forum.inf.entity.User;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import javax.sql.DataSource;
 import org.junit.Assert;
 import org.junit.Test;
@@ -31,10 +33,13 @@ public class TestUser {
    @Autowired
    private JpaTransactionManager jtm;
    
-   @Test
+   @Autowired
+   private AnnouncementDao anndao;
+   
+//   @Test
    public void testInsertUser() throws SQLException {
        User u = new User();
-       u.setNama("Taek");
+       u.setNama("Entah");
        u.setEmail("taek@test.com");
        u.setPass("123456789010");
        ud.save(u);
@@ -53,25 +58,25 @@ public class TestUser {
        ds = jtm.getDataSource();
        
        try(Connection c = ds.getConnection()) {
-           String sql = "select count(*) as jumlah from tb_user where nama_user='Taek'";
+           String sql = "select count(*) as jumlah from tb_user where nama_user='Entah'";
            ResultSet rs = c.createStatement().executeQuery(sql);
            Assert.assertTrue(rs.next());
            Assert.assertEquals(1L, rs.getLong("jumlah"));
        }
    }
    
-   @Test
+//   @Test
    public void insertLab() throws SQLException {
        User u = new User();
-       u.setNama("Tssakdef");
-       u.setEmail("asdf@test.com");
-       u.setPass("asadf");
+       u.setNama("MasukPakEko");
+       u.setEmail("MasukPakEko@MasukPakEko.com");
+       u.setPass("MasukPakEko");
        ud.save(u);
        
        Lab l = new Lab();
-       l.setNama("AI");
-       l.setDeskripsi("Testing");
-       l.setDosen("Andit");
+       l.setNama("Computing");
+       l.setDeskripsi("Computing Juara");
+       l.setDosen("Lord Arzaki");
        l.setKategori("ICM");
        l.setUser(u);
        
@@ -81,10 +86,36 @@ public class TestUser {
        ds = jtm.getDataSource();
        
        try(Connection c = ds.getConnection()) {
-           String sql = "select count(*) as jumlah from tb_user where nama_user='Tssakdef'";
+           String sql = "select count(*) as jumlah from tb_user where nama_user='MasukPakEko'";
            ResultSet rs = c.createStatement().executeQuery(sql);
            Assert.assertTrue(rs.next());
-           Assert.assertEquals(2L, rs.getLong("jumlah"));
+           Assert.assertEquals(1L, rs.getLong("jumlah"));
+       }
+   }
+   
+   @Test
+   public void testInserAnn() throws SQLException {
+//    User u = ud.getOne("502385b3-0523-4341-9ac9-2d37f25d066d");
+    
+    Optional<User> u = ud.findById("502385b3-0523-4341-9ac9-2d37f25d066d");
+    
+    User user = u.get();
+    
+    Announcement ann = new Announcement();
+    ann.setIsi("Contoh Pengumuman");
+    ann.setJudul("Besok Libur");
+    ann.setUser(user);
+    
+    user.getDaftarAnn().add(ann);
+    
+    ud.saveAndFlush(user);
+//    anndao.save(ann);
+    
+    try(Connection c = ds.getConnection()) {
+           String sql = "select count(*) as jumlah from tb_announcement where judul='Besok Libur'";
+           ResultSet rs = c.createStatement().executeQuery(sql);
+           Assert.assertTrue(rs.next());
+           Assert.assertEquals(1L, rs.getLong("jumlah"));
        }
    }
    
