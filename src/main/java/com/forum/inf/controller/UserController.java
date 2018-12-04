@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @author tayo
  */
 @RestController
+@CrossOrigin
 @RequestMapping(method = RequestMethod.GET, value = "/api")
-@CrossOrigin(origins = "", allowedHeaders = "")
 public class UserController {
     
     @Autowired
@@ -70,6 +70,11 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createUser(@RequestBody @Valid User u) {
         ud.save(u);
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/user/login")
+    public Boolean cekLogin(@RequestBody User u) {
+        
     }
     
     @RequestMapping(method = RequestMethod.DELETE, value = "/user/deletebyemail/{email}")
