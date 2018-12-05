@@ -36,7 +36,6 @@ public class User {
     private String id;
     
     @Column(nullable = false, name = "nama_user")
-    @NotNull @NotEmpty
     @Size(max = 20)
     private String nama;
     

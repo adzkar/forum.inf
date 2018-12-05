@@ -5,6 +5,7 @@ import com.forum.inf.dto.Userdto;
 import com.forum.inf.entity.User;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +33,7 @@ public class UserController {
     }
     
     @RequestMapping(method = RequestMethod.GET, value = "/user")
-    public List<Userdto> getAllUser() {
+    public List<Userdto> getAllUser(HttpSession session) {
         List<Userdto> listUser = new ArrayList<>();
         List<User> source = ud.findAll();
         for(int i = 0;i < ud.count();i++) {
@@ -44,6 +45,7 @@ public class UserController {
                         )
                     );
         }
+        System.out.println("ID USER: "+session.getAttribute("id_user"));
         return listUser;
     }
     
@@ -72,9 +74,19 @@ public class UserController {
         ud.save(u);
     }
     
-    @RequestMapping(method = RequestMethod.GET, value = "/user/login")
-    public Boolean cekLogin(@RequestBody User u) {
-        
+    @RequestMapping(method = RequestMethod.POST, value = "/user/login")
+    public Boolean cekLogin(@RequestBody User u, HttpSession session) {
+        List<User> user = ud.login(u.getEmail(), u.getPass());
+        if(user.size() > 0) {
+            session.setAttribute("id_user", user.get(0).getId());
+            System.out.println("Id User: "+session.getAttribute("id_user"));
+        }
+        return user.size() == 1;
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/user/logout")
+    public void removeSession(HttpSession session) {
+        session.removeAttribute("id_user");
     }
     
     @RequestMapping(method = RequestMethod.DELETE, value = "/user/deletebyemail/{email}")
