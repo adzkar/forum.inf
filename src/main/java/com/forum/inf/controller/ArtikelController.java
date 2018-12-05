@@ -49,6 +49,7 @@ public class ArtikelController {
     public List<Artikeldto> getAllArtikel() {
         List<Artikeldto> listArtikel = new ArrayList<>();
         List<Artikel> sources = ad.findAll();
+        System.out.println("Jumlah Artikel: "+ad.count());
         for(int i = 0;i < ad.count();i++) {
             listArtikel.add(new Artikeldto(
                                 (i+1),
@@ -59,9 +60,12 @@ public class ArtikelController {
                                 sources.get(i).getImage()
                             )
                         );
+            
             List<Komentardto> daftarKomentardto = new ArrayList<>();
-            List<Komentar> komentarSource = ad.getArtikelByJudul(sources.get(i).getJudul()).get(i).getDaftar_komentar();
-            int banyakKomentar = ad.getArtikelByJudul(sources.get(i).getJudul()).get(i).getDaftar_komentar().size();
+            List<Komentar> komentarSource = sources.get(i).getDaftar_komentar();
+            
+            int banyakKomentar = komentarSource.size();
+            
             System.out.println("Banyak Komentar: "+banyakKomentar);
             for(int j = 0;j < banyakKomentar;j++) {
                 daftarKomentardto.add(new Komentardto(
@@ -89,9 +93,12 @@ public class ArtikelController {
                                 sources.get(i).getImage()
                             )
                         );
+            
             List<Komentardto> daftarKomentardto = new ArrayList<>();
-            List<Komentar> komentarSource = ad.getArtikelByJudul(sources.get(i).getJudul()).get(i).getDaftar_komentar();
-            int banyakKomentar = ad.getArtikelByJudul(sources.get(i).getJudul()).get(i).getDaftar_komentar().size();
+            List<Komentar> komentarSource = sources.get(i).getDaftar_komentar();
+            
+            int banyakKomentar = komentarSource.size();
+            
             System.out.println("Banyak Komentar: "+banyakKomentar);
             for(int j = 0;j < banyakKomentar;j++) {
                 daftarKomentardto.add(new Komentardto(
@@ -106,6 +113,37 @@ public class ArtikelController {
             return new Artikeldto();
         else
             return listArtikel.get(id-1);
+    }
+    
+    @RequestMapping(method = RequestMethod.DELETE, value = "/delete/{id}")
+    public void deleteArtikelById(@PathVariable("id") int id) {
+        List<Artikeldto> listArtikel = new ArrayList<>();
+        List<Artikel> sources = ad.findAll();
+        for(int i = 0;i < ad.count();i++) {
+            listArtikel.add(new Artikeldto(
+                                (i+1),
+                                sources.get(i).getJudul(),
+                                sources.get(i).getIsi(),
+                                sources.get(i).getUpload(),
+                                sources.get(i).getView(),
+                                sources.get(i).getImage()
+                            )
+                        );
+            List<Komentardto> daftarKomentardto = new ArrayList<>();
+            List<Komentar> komentarSource = ad.getArtikelByJudul(sources.get(i).getJudul()).get(i).getDaftar_komentar();
+            int banyakKomentar = ad.getArtikelByJudul(sources.get(i).getJudul()).get(i).getDaftar_komentar().size();
+            System.out.println("Banyak Komentar: "+banyakKomentar);
+            for(int j = 0;j < banyakKomentar;j++) {
+                daftarKomentardto.add(new Komentardto(
+                                            komentarSource.get(j).getJudul(),
+                                            komentarSource.get(j).getIsi()
+                                        )
+                                );
+            }
+            listArtikel.get(i).setDaftarKomentar(daftarKomentardto);
+        }
+        List<Artikel> artikel = ad.getArtikelByJudul(listArtikel.get(id-1).getJudul());
+        ad.delete(artikel.get(0));
     }
     
     @RequestMapping(method = RequestMethod.POST, value = "/create")
@@ -148,5 +186,7 @@ public class ArtikelController {
         
         kd.save(komentar);
     }
+    
+    
     
 }
