@@ -4,6 +4,7 @@ import com.forum.inf.dao.ArtikelDao;
 import com.forum.inf.dao.KomentarDao;
 import com.forum.inf.dao.UserDao;
 import com.forum.inf.dto.Artikeldto;
+import com.forum.inf.dto.Komentardto;
 import com.forum.inf.entity.Artikel;
 import com.forum.inf.entity.Komentar;
 import com.forum.inf.entity.User;
@@ -48,18 +49,28 @@ public class ArtikelController {
     public List<Artikeldto> getAllArtikel() {
         List<Artikeldto> listArtikel = new ArrayList<>();
         List<Artikel> sources = ad.findAll();
-        if(ad.count() > 0) {
-            for(int i = 0;i < ad.count();i++) {
-                listArtikel.add(new Artikeldto(
-                                    (i+1),
-                                    sources.get(i).getJudul(),
-                                    sources.get(i).getIsi(),
-                                    sources.get(i).getUpload(),
-                                    sources.get(i).getView(),
-                                    sources.get(i).getImage()
-                                )
-                            );
+        for(int i = 0;i < ad.count();i++) {
+            listArtikel.add(new Artikeldto(
+                                (i+1),
+                                sources.get(i).getJudul(),
+                                sources.get(i).getIsi(),
+                                sources.get(i).getUpload(),
+                                sources.get(i).getView(),
+                                sources.get(i).getImage()
+                            )
+                        );
+            List<Komentardto> daftarKomentardto = new ArrayList<>();
+            List<Komentar> komentarSource = ad.getArtikelByJudul(sources.get(i).getJudul()).get(i).getDaftar_komentar();
+            int banyakKomentar = ad.getArtikelByJudul(sources.get(i).getJudul()).get(i).getDaftar_komentar().size();
+            System.out.println("Banyak Komentar: "+banyakKomentar);
+            for(int j = 0;j < banyakKomentar;j++) {
+                daftarKomentardto.add(new Komentardto(
+                                            komentarSource.get(j).getJudul(),
+                                            komentarSource.get(j).getIsi()
+                                        )
+                                );
             }
+            listArtikel.get(i).setDaftarKomentar(daftarKomentardto);
         }
         return listArtikel;
     }
@@ -68,18 +79,28 @@ public class ArtikelController {
     public Artikeldto getArtikelId(@PathVariable("id") int id) {
         List<Artikeldto> listArtikel = new ArrayList<>();
         List<Artikel> sources = ad.findAll();
-        if(ad.count() > 0) {
-            for(int i = 0;i < ad.count();i++) {
-                listArtikel.add(new Artikeldto(
-                                    (i+1),
-                                    sources.get(i).getJudul(),
-                                    sources.get(i).getIsi(),
-                                    sources.get(i).getUpload(),
-                                    sources.get(i).getView(),
-                                    sources.get(i).getImage()
-                                )
-                            );
+        for(int i = 0;i < ad.count();i++) {
+            listArtikel.add(new Artikeldto(
+                                (i+1),
+                                sources.get(i).getJudul(),
+                                sources.get(i).getIsi(),
+                                sources.get(i).getUpload(),
+                                sources.get(i).getView(),
+                                sources.get(i).getImage()
+                            )
+                        );
+            List<Komentardto> daftarKomentardto = new ArrayList<>();
+            List<Komentar> komentarSource = ad.getArtikelByJudul(sources.get(i).getJudul()).get(i).getDaftar_komentar();
+            int banyakKomentar = ad.getArtikelByJudul(sources.get(i).getJudul()).get(i).getDaftar_komentar().size();
+            System.out.println("Banyak Komentar: "+banyakKomentar);
+            for(int j = 0;j < banyakKomentar;j++) {
+                daftarKomentardto.add(new Komentardto(
+                                            komentarSource.get(j).getJudul(),
+                                            komentarSource.get(j).getIsi()
+                                        )
+                                );
             }
+            listArtikel.get(i).setDaftarKomentar(daftarKomentardto);
         }
         if(id < 1 | id > listArtikel.size())
             return new Artikeldto();

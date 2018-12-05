@@ -13,7 +13,7 @@ public class Artikeldto {
    private int id, total_view;
    private String judul, isi, image;
    private Date tgl_publish;
-   private List<Komentar> daftarKomentar = new ArrayList<>();
+   private List<Komentardto> daftarKomentar = new ArrayList<>();
 
     public Artikeldto() {
     }
@@ -75,11 +75,11 @@ public class Artikeldto {
         this.tgl_publish = tgl_publish;
     }
 
-    public List<Komentar> getDaftarKomentar() {
+    public List<Komentardto> getDaftarKomentar() {
         return daftarKomentar;
     }
 
-    public void setDaftarKomentar(List<Komentar> daftarKomentar) {
+    public void setDaftarKomentar(List<Komentardto> daftarKomentar) {
         this.daftarKomentar = daftarKomentar;
     }
    
