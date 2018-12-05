@@ -5,6 +5,7 @@ import com.forum.inf.dto.Userdto;
 import com.forum.inf.entity.User;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,18 @@ public class UserController {
             return new Userdto();
         else
             return listUser.get(id-1);
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/user/session")
+    public Userdto getUserLogin(HttpSession session) {
+        Userdto userdto = new Userdto();
+        if(session.getAttribute("id_user") != null) {
+            Optional<User> u = ud.findById(session.getAttribute("id_user").toString());
+            User user = u.get();
+            userdto.setNama(user.getNama());
+            userdto.setEmail(user.getEmail());
+        }
+        return userdto;
     }
     
     @RequestMapping(method = RequestMethod.POST, value = "/user/create")
