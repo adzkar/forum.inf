@@ -121,7 +121,7 @@ public class TestUser {
        }
    }
    
-   @Test
+//   @Test
    public void createAdmin() throws SQLException {
        User u = new User();
        u.setNama("admin");

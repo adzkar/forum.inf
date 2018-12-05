@@ -52,7 +52,7 @@ public class Artikel {
 //    Relation
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "artikel")
     private List<Komentar> daftar_komentar = new ArrayList<>();
-
+//
     @ManyToMany
     @JoinTable(
         name = "tb_tag_artikel",
@@ -61,8 +61,12 @@ public class Artikel {
     )
     private List<Tag> daftarTag = new ArrayList<>();
     
-    @ManyToMany(mappedBy = "daftarArtikel")
-    private List<User> daftarUser = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
+    
+//    @ManyToMany(mappedBy = "daftarArtikel")
+//    private List<User> daftarUser = new ArrayList<>();
     
     public String getId() {
         return id;
@@ -116,12 +120,30 @@ public class Artikel {
         return daftar_komentar;
     }
 
+    
+    
+//    public List<Tag> getDaftarTag() {
+//        return daftarTag;
+//    }
+
+//    public List<User> getDaftarUser() {
+//        return daftarUser;
+//    }
+
     public List<Tag> getDaftarTag() {
         return daftarTag;
     }
 
-    public List<User> getDaftarUser() {
-        return daftarUser;
+    public void setDaftarTag(List<Tag> daftarTag) {
+        this.daftarTag = daftarTag;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
     
 }

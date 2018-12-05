@@ -65,11 +65,16 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
     private List<Announcement> daftarAnn = new ArrayList<>();
     
-    @ManyToMany
-    @JoinTable(
-            name = "tb_daftar_artikel",
-            joinColumns = @JoinColumn(name = "id_user"),
-            inverseJoinColumns = @JoinColumn(name = "id_artikel")
+//    @ManyToMany
+//    @JoinTable(
+//            name = "tb_daftar_artikel",
+//            joinColumns = @JoinColumn(name = "id_user"),
+//            inverseJoinColumns = @JoinColumn(name = "id_artikel")
+//    )
+//    private List<Artikel> daftarArtikel = new ArrayList<>();
+    
+    @OneToMany(
+            mappedBy = "user"
     )
     private List<Artikel> daftarArtikel = new ArrayList<>();
 
