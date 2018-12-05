@@ -4,7 +4,9 @@ import com.forum.inf.dao.UserDao;
 import com.forum.inf.dto.Userdto;
 import com.forum.inf.entity.User;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -79,6 +81,14 @@ public class UserController {
             userdto.setEmail(user.getEmail());
         }
         return userdto;
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/user/sessionid")
+    public Map<String,String> getSessionId(HttpSession session) {
+        Map<String,String> mp = new HashMap<String, String>();
+        if(session.getAttribute("id_user") != null)
+            mp.put("id_session",session.getAttribute("id_user").toString());
+        return mp;
     }
     
     @RequestMapping(method = RequestMethod.POST, value = "/user/create")
